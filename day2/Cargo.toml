@@ -1,0 +1,13 @@
+[package]
+name = "day2"
+version = "0.1.0"
+authors = ["daggy1234 <daggy@daggy.tech>"]
+edition = "2018"
+
+[dependencies]
+regex = "1.4.2"
+lazy_static = "1.4.0"
+
+[[bin]]
+name = "day2"
+path = "day2.rs"

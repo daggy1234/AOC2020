@@ -1,0 +1,11 @@
+[package]
+name = "day1"
+version = "0.1.0"
+authors = ["daggy1234 <daggy@daggy.tech>"]
+edition = "2018"
+
+[dependencies]
+
+[[bin]]
+name = "day1"
+path = "day1.rs"
