@@ -20,34 +20,30 @@ def compute_problem(files):
     else:
       print("Hmmmmmmm")
 
-  def compute_split(li: list):
+  @functools.lru_cache(maxsize=None)
+  def compute_split(m: int):
     sols = 0
-    m = max(li)
     if m == end:
       return 1
     if (m + 1) in voo:
-      sols += compute_split(li + [m + 1])
+      sols += compute_split(m + 1)
     if (m + 2) in voo:
-      sols += compute_split(li + [m + 2])
+      sols += compute_split(m + 2)
     if (m + 3) in voo:
-      sols += compute_split(li + [m + 3])
+      sols += compute_split(m + 3)
     return sols
 
   lines.sort()
-  print("HERE WE GO")
-  out = compute_split(lines[0:1])
+  out = compute_split(max(lines[0:1]))
 
 
   def count_out(x):
       if isinstance(x, int):
           return 0
       return 1 + sum(count_out(i) for i in x)
+  print(f"Possible Outcomes: {out}")
+  print(f"One Difference: {one_diff}\nThree Diff: {three_diff}\nMultiplied: {one_diff*three_diff}")
 
-  print(out)
-  print("OVER")
-
-compute_problem("day10sample.txt")
-compute_problem("day10sample2.txt")
 compute_problem("day10.txt")
 #print(len(out[0][0]))
 # base = [0]
