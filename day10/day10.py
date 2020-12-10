@@ -1,55 +1,54 @@
-start = 0
-voo = [int(val) for val in open("day10.txt","r").readlines()]
-lines = [0] + voo.copy()
-end = max(voo) 
-three_diff = 1
-one_diff = 0
-import random
+import functools
 
-
-for i,voltage in enumerate(voo):
-  if (start + 1) in voo:
-    start += 1
-    one_diff += 1
-  elif (start + 3) in voo:
-    start += 3
-    three_diff += 1
-  else:
-    print("Hmmmmmmm")
-
-
-def compute_split(li: list):
-  # base = list()
-  cops = li.copy()
-  sols = 0
-  m = max(li)
-  if m == end:
-    return 1
-  if (m + 1) in voo:
-    #base.append(compute_split(cops + [m + 1]))
-    sols += compute_split(cops + [m + 1])
-  if (m + 2) in voo:
-    #base.append(compute_split(cops + [m + 2]))
-    sols += compute_split(cops + [m + 2])
-  if (m + 3) in voo:
-    #base.append(compute_split(cops + [m + 3]))
-    sols += compute_split(cops + [m + 3])
-  return sols
+def compute_problem(files):
+  start = 0
+  voo = [int(val) for val in open(files,"r").readlines()]
+  lines = [0] + voo.copy()
+  end = max(voo) 
+  three_diff = 1
+  one_diff = 0
 
 
 
-lines.sort()
-print("HERE WE GO")
-out = (compute_split(lines[0:1]))
+  for i,voltage in enumerate(voo):
+    if (start + 1) in voo:
+      start += 1
+      one_diff += 1
+    elif (start + 3) in voo:
+      start += 3
+      three_diff += 1
+    else:
+      print("Hmmmmmmm")
+
+  def compute_split(li: list):
+    sols = 0
+    m = max(li)
+    if m == end:
+      return 1
+    if (m + 1) in voo:
+      sols += compute_split(li + [m + 1])
+    if (m + 2) in voo:
+      sols += compute_split(li + [m + 2])
+    if (m + 3) in voo:
+      sols += compute_split(li + [m + 3])
+    return sols
+
+  lines.sort()
+  print("HERE WE GO")
+  out = compute_split(lines[0:1])
 
 
-def count_out(x):
-    if isinstance(x, int):
-        return 0
-    return 1 + sum(count_out(i) for i in x)
+  def count_out(x):
+      if isinstance(x, int):
+          return 0
+      return 1 + sum(count_out(i) for i in x)
 
-print(out)
-print("OVER")
+  print(out)
+  print("OVER")
+
+compute_problem("day10sample.txt")
+compute_problem("day10sample2.txt")
+compute_problem("day10.txt")
 #print(len(out[0][0]))
 # base = [0]
 
